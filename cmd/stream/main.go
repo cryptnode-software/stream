@@ -5,7 +5,6 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
-	pisces "github.com/cryptnode-software/pisces/lib"
 	"github.com/cryptnode-software/stream/pkg/home"
 )
 
@@ -15,10 +14,6 @@ func main() {
 		fmt.Printf("Alas, there's been an error: %v", err)
 		os.Exit(1)
 	}
-}
-
-type services struct {
-	User *pisces.AuthService
 }
 
 type Step interface {

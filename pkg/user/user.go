@@ -11,6 +11,7 @@ var (
 
 		item{
 			"Create User", "create a new user and configure them accordingly",
+			new(CreateUserModel),
 		},
 	}
 )
@@ -19,6 +20,7 @@ var userdocStyle = lipgloss.NewStyle().Margin(1, 2)
 
 type item struct {
 	title, desc string
+	tea.Model
 }
 
 func (i item) FilterValue() string { return i.title }
@@ -47,8 +49,10 @@ func (model *UserModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// The "enter" key and the spacebar (a literal space) toggle
 		// the selected state for the item that the cursor is pointing at.
 		case "enter", " ":
-			return model, nil
-			// return uitems[model.list.Cursor()].(uitem).Model, nil
+			if model, ok := uitems[model.list.Cursor()].(item); ok {
+				model.Init()
+				return model, nil
+			}
 		}
 
 	}
